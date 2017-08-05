@@ -1,0 +1,38 @@
+{
+  "name": "rustacean-web-app",
+  "version": "1.0.0",
+  "description": "A React client application for a Rocket server",
+  "main": "js/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./node_modules/webpack/bin/webpack.js --watch",
+    "compile": "node ./node_modules/webpack/bin/webpack.js -p"
+  },
+  "author": "Sam Jeston",
+  "license": "ISC",
+  "dependencies": {
+    "@types/react": "^15.0.35",
+    "@types/react-dom": "^15.5.1",
+    "axios": "^0.16.2",
+    "bulma": "^0.4.3",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-quill": "^1.0.0",
+    "react-router-dom": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/node": "^8.0.9",
+    "@types/react-router-dom": "^4.0.6",
+    "awesome-typescript-loader": "^3.2.1",
+    "css-loader": "^0.28.4",
+    "file-loader": "^0.11.2",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "source-map-loader": "^0.2.1",
+    "style-loader": "^0.18.2",
+    "typescript": "^2.4.1",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.1.0"
+  }
+}
