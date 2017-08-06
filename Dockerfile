@@ -13,7 +13,7 @@ COPY ./client/package.json ./client/package.json
 COPY ./server/pm2.json ./server/pm2.json
 
 RUN cd server && npm install --production
-RUN cd client && npm install --production
+RUN cd client && npm install
 
 # Copy only production code
 COPY ./server/src/ ./server/src/

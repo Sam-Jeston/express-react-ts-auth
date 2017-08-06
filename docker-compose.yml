@@ -1,16 +1,15 @@
-version: '2'
+version: '3'
 services:
   server:
     build:
       context: ./
       dockerfile: Dockerfile
-    command: cd server && npm start
+    command: sh -c 'cd server && npm start'
     ports:
      - "3000:3000"
     volumes:
-     - ./server/dist:/server/dist
-     - ./client/dist:/client/dist
-     - ./client/public:/client/public
+     - ./server:/server
+     - ./client:/client
     links:
      - postgres:postgres
     depends_on:

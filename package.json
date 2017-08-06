@@ -4,7 +4,10 @@
   "description": "Umbrella",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently --prefix \"[{name}]\" --names \"SERVER,SERVER_WATCH,CLIENT\" -c \"bgBlue.bold,bgMagenta.bold,bgGreen.bold\" \"cd server && npm start\" \"cd server && npm run watch\" \"cd client && npm start\"",
+    "start-local": "concurrently --prefix \"[{name}]\" --names \"SERVER,SERVER_WATCH,CLIENT\" -c \"bgBlue.bold,bgMagenta.bold,bgGreen.bold\" \"cd server && npm start\" \"cd server && npm run watch\" \"cd client && npm start\"",
+    "watch": "concurrently --prefix \"[{name}]\" --names \"SERVER,SERVER_WATCH,CLIENT\" -c \"bgBlue.bold,bgMagenta.bold,bgGreen.bold\" \"cd server && npm start\" \"cd server && npm run watch\" \"cd client && npm start\"",
+    "start": "docker-compose up -d && concurrently --prefix \"[{name}]\" --names \"DOCKER,SERVER_WATCH,CLIENT_WATCH\" -c \"bgBlue.bold,bgMagenta.bold,bgGreen.bold\" \"docker-compose logs -f\" \"cd server && npm run watch\" \"cd client && npm start\"",
+    "kill": "docker-compose kill && docker-compose rm",
     "prod": "cd server && npm start"
   },
   "repository": {
