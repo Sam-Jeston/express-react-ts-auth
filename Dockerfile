@@ -17,6 +17,7 @@ RUN cd client && npm install
 
 # Copy only production code
 COPY ./server/src/ ./server/src/
+COPY ./server/migrations/ ./server/migrations/
 COPY ./server/tsconfig.json ./server/tsconfig.json
 COPY ./client/src/ ./client/src/
 COPY ./client/public/ ./client/public/

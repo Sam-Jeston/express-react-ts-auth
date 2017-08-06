@@ -4,7 +4,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    command: sh -c 'cd server && npm start'
+    command: sh -c 'cd server && ./node_modules/pm2/bin/pm2 start --watch --no-daemon pm2.json'
     ports:
      - "3000:3000"
     volumes:
