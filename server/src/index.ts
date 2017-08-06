@@ -1,13 +1,22 @@
 import * as express from 'express'
-const app = express()
-app.use(express.static('../client/dist'))
+import { runMigrations } from './utils/run_migrations'
 
-app.get('/api', function (req, res) {
-  res.send('Hello World!')
-})
+export async function boot() {
+  await runMigrations()
+  const app = express()
+  app.use(express.static('../client/dist'))
 
-app.get('*', express.static(__dirname + '/../../client'))
+  app.get('/api', function (req, res) {
+    res.send('Hello World!')
+  })
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 60!')
+  app.get('*', express.static(__dirname + '/../../client'))
+
+  return app
+}
+
+boot().then((app) => {
+  app.listen(3000, function () {
+    console.log('Example app listening on port 60!')
+  })
 })
