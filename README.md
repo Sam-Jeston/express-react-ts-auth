@@ -1,9 +1,9 @@
 # express-react-ts-auth
 Boilerplate for an Express API, React F.E. TypeScript and Auth with Passport
 
-the Client and Server directories are independant of each other, including module dependencies.
+This project has been setup as an Umbrella Repo. The Client and Server directories are independant of each other, including module dependencies.
 
-All that is shared is tslint rules.
+Local development is done with docker compose. From the root level run `npm start`, after doing module installs in the client and server apps (this is just to allow the local TS watchers to compile)
 
 ## Client
 
