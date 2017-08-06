@@ -6,13 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "rm -rf dist/* && ./node_modules/typescript/bin/tsc --sourcemap -p ./",
-    "start": "npm run compile && node dist/index.js"
+    "start": "npm run compile && ./node_modules/pm2/bin/pm2 start --watch --no-daemon pm2.json",
+    "watch": "./node_modules/typescript/bin/tsc --sourcemap --watch -p ./"
   },
   "author": "Sam Jeston",
   "license": "ISC",
   "dependencies": {
     "@types/express": "^4.0.36",
     "express": "^4.15.3",
+    "pm2": "^2.6.1",
     "typescript": "^2.4.2"
   }
 }

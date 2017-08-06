@@ -13,7 +13,7 @@ import { Admin } from './Admin'
 import { Login } from './Login'
 import { Signup } from './Signup'
 import { NotFound } from './NotFound'
-const rustacean = require('../../public/rustacean.png')
+const icon = require('../../public/management.svg')
 
 const inactiveClasses = "navbar-menu"
 const activeClasses = "navbar-menu is-active"
@@ -37,7 +37,7 @@ export class App extends React.Component<any, {active: boolean}> {
           <nav className="navbar is-transparent">
             <div className="navbar-brand">
               <a className="navbar-item" href="https://rustontheweb.com">
-                <img src={`/dist/${rustacean}`} alt="Rustaceans on the Web" width="70" height="52" />
+                <img src={`/dist/${icon}`} alt="Express React Passport" width="70" height="52" />
               </a>
 
               <div className="navbar-burger burger" data-target="navMenuExample" onClick={ () => this.toggleIsActive() }>

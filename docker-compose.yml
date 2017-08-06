@@ -1,0 +1,29 @@
+version: '2'
+services:
+  server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: cd server && npm start
+    ports:
+     - "3000:3000"
+    volumes:
+     - ./server/dist:/server/dist
+     - ./client/dist:/client/dist
+     - ./client/public:/client/public
+    links:
+     - postgres:postgres
+    depends_on:
+     - "postgres"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "30m"
+        max-file: "10"
+  postgres:
+    image: postgres:9.6
+    ports:
+     - "6432:5432"
+    environment:
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=postgres

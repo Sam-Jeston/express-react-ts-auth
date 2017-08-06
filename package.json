@@ -1,0 +1,23 @@
+{
+  "name": "express-react-ts-auth",
+  "version": "1.0.0",
+  "description": "Umbrella",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently --prefix \"[{name}]\" --names \"SERVER,SERVER_WATCH,CLIENT\" -c \"bgBlue.bold,bgMagenta.bold,bgGreen.bold\" \"cd server && npm start\" \"cd server && npm run watch\" \"cd client && npm start\"",
+    "prod": "cd server && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sam-Jeston/express-react-ts-auth.git"
+  },
+  "author": "Sam Jeston",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sam-Jeston/express-react-ts-auth/issues"
+  },
+  "homepage": "https://github.com/Sam-Jeston/express-react-ts-auth#readme",
+  "dependencies": {
+    "concurrently": "^3.5.0"
+  }
+}
