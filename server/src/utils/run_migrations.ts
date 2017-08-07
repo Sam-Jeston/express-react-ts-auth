@@ -26,8 +26,8 @@ export function runMigrations () {
       }
 
       exec(`DATABASE_URL=${dbUrl} npm run migrate-up`, function (error: any, stdout: any, stderr: any) {
-        console.log('stdout: ' + stdout)
-        console.log('stderr: ' + stderr)
+        // console.log('stdout: ' + stdout)
+        // console.log('stderr: ' + stderr)
         if (error !== null) {
           console.log('exec error: ' + error)
         }

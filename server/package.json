@@ -4,7 +4,7 @@
   "description": "Express, TypeScript, PG, Passport",
   "main": "js/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "DB_HANG_WAIT=0 jest --forceExit",
     "compile": "rm -rf dist/* && ./node_modules/typescript/bin/tsc --sourcemap -p ./",
     "start": "npm run compile && ./node_modules/pm2/bin/pm2 start --watch --no-daemon pm2.json",
     "watch": "./node_modules/typescript/bin/tsc --sourcemap --watch -p ./",
@@ -23,5 +23,22 @@
     "pg": "^7.1.0",
     "pm2": "^2.6.1",
     "typescript": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^20.0.6",
+    "jest": "^20.0.4",
+    "ts-jest": "^20.0.10"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ]
   }
 }

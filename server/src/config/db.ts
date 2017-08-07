@@ -25,6 +25,14 @@ export function dbCreds (): DbCreds {
       password: 'postgres',
       port: 5432,
     }
+  } else {
+    return {
+      user: 'postgres',
+      host: 'localhost',
+      database: database,
+      password: '',
+      port: 5432,
+    }
   }
 }
 
@@ -43,6 +51,14 @@ export function dbInitCreds (): DbCreds {
       host: 'postgres',
       database: 'postgres',
       password: 'postgres',
+      port: 5432,
+    }
+  } else {
+    return {
+      user: 'postgres',
+      host: 'localhost',
+      database: 'postgres',
+      password: '',
       port: 5432,
     }
   }
