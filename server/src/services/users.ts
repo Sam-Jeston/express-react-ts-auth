@@ -1,4 +1,6 @@
 const bcrypt = require('bcryptjs')
+import { createUser as insertUser } from '../db/users'
+import { User } from '../db/interfaces'
 
 export function createHashedPassword (password: string): Promise<string> {
   return new Promise((res, rej) => {
@@ -14,4 +16,9 @@ export function createHashedPassword (password: string): Promise<string> {
 
 export function validatePassword (password: string, hash: string): Promise<boolean> {
   return bcrypt.compare(password, hash)
+}
+
+export async function createUser (username: string, password: string): Promise<User> {
+  const hashedPassword = await createHashedPassword(password)
+  return insertUser(username, hashedPassword)
 }

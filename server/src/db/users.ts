@@ -15,3 +15,14 @@ export function getUserByUsername (username: string): Promise<User> {
     return users.length > 0 ? users[0] : {}
   })
 }
+
+export async function createUser (username: string, hashedPassword: string): Promise<User> {
+  await queryHandler(async function (client: Client) {
+    await client.query(
+      `INSERT INTO users (username, password, "createdAt", "updatedAt") VALUES ($1, $2, $3, $4)`,
+      [username, hashedPassword, new Date(), new Date()]
+    )
+  })
+
+  return getUserByUsername(username)
+}

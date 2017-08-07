@@ -1,5 +1,5 @@
 import { migrateDb, cleanDb } from '../utils/test_db'
-import { getUserById, getUserByUsername } from './users'
+import { getUserById, getUserByUsername, createUser } from './users'
 import { queryHandler } from './connection'
 import { Client } from 'pg'
 
@@ -45,6 +45,12 @@ test('getUserById returns a user when they exist', async () => {
 
   const res = await getUserByUsername('john')
   expect(res.id).toEqual(1)
+  expect(res.username).toEqual('john')
+  expect(res.password).toEqual('xxxx')
+})
+
+test('createUser returns the newly created user', async () => {
+  const res = await createUser('john', 'xxxx')
   expect(res.username).toEqual('john')
   expect(res.password).toEqual('xxxx')
 })
