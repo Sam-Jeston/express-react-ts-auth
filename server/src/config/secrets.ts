@@ -1,3 +1,3 @@
 export const secrets = {
-  cookieKey: process.env.COOKIE_KEY || '4uV1lNoKtXwp'
+  cookie: process.env.COOKIE_KEY || '4uV1lNoKtXwp'
 }

@@ -7,7 +7,7 @@ exports.up = async () => {
   await client.query(`
     CREATE TABLE users (
       id integer PRIMARY KEY,
-      username character varying(255) NOT NULL,
+      username character varying(255) NOT NULL UNIQUE,
       password character varying(255) NOT NULL,
       "createdAt" timestamp with time zone NOT NULL,
       "updatedAt" timestamp with time zone NOT NULL

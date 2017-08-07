@@ -36,8 +36,8 @@ export class App extends React.Component<any, {active: boolean}> {
         <div>
           <nav className="navbar is-transparent">
             <div className="navbar-brand">
-              <a className="navbar-item" href="https://rustontheweb.com">
-                <img src={`/dist/${icon}`} alt="Express React Passport" width="70" height="52" />
+              <a className="navbar-item" href="https://google.com">
+                <object data={`${icon}`} type="image/svg+xml" width="70px" height="52px"></object>
               </a>
 
               <div className="navbar-burger burger" data-target="navMenuExample" onClick={ () => this.toggleIsActive() }>
