@@ -1,7 +1,7 @@
 {
-  "name": "rustacean-web-app",
+  "name": "express-react-ts-auth",
   "version": "1.0.0",
-  "description": "A React client application for a Rocket server",
+  "description": "A React client application for some boilerplate Express",
   "main": "js/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

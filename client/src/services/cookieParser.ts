@@ -1,6 +1,6 @@
 import { merge } from 'lodash'
 
-export function cookieParser (cookies: string): {} {
+export function cookieParser (cookies: string): {[cookieKey: string]: string} {
   return cookies.split(';')
     .map(c => {
       if (c[0] === ' ') {
@@ -15,4 +15,8 @@ export function cookieParser (cookies: string): {} {
       merge(acc, val)
       return acc
     }, {})
+}
+
+export function deleteCookie (name: string) {
+  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
 }

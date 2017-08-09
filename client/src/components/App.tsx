@@ -1,4 +1,5 @@
-import * as React from "react";
+import * as React from 'react'
+import { assign } from 'lodash'
 import {
   BrowserRouter as Router,
   Route,
@@ -9,6 +10,7 @@ import {
 import { Home } from './Home'
 import { About } from './About'
 import { Login } from './Login'
+import { Logout } from './Logout'
 import { Signup } from './Signup'
 import { NotFound } from './NotFound'
 import { cookieParser } from '../services/cookieParser'
@@ -19,20 +21,31 @@ const inactiveClasses = "navbar-menu"
 const activeClasses = "navbar-menu is-active"
 
 export function isAuthenticated() {
-  // Use cookieParser
-  return false
+  const cookies = document.cookie
+  const parsedCookies = cookieParser(cookies)
+  if (!parsedCookies.userId) {
+    return false
+  }
+
+  return true
 }
 
-export class App extends React.Component<any, {active: boolean}> {
+export class App extends React.Component<any, {active: boolean, authenticated: boolean}> {
   constructor(props: any) {
     super(props)
-    this.state = { active: false }
+    this.state = { active: false, authenticated: false }
+    this.evaluateAuthentication = this.evaluateAuthentication.bind(this)
   }
 
   public toggleIsActive () {
     this.setState({
       active: !this.state.active
     })
+  }
+
+  public evaluateAuthentication() {
+    const authenticated = isAuthenticated()
+    this.setState({authenticated})
   }
 
   render() {
@@ -53,7 +66,7 @@ export class App extends React.Component<any, {active: boolean}> {
             </div>
 
             <div id="navMenuExample" className={this.state.active ? activeClasses : inactiveClasses}>
-              {isAuthenticated() && (
+              {this.state.authenticated && (
                 <div className="navbar-start">
                   <Link className="navbar-item" to="/">Home</Link>
                   <Link className="navbar-item" to="/about">About</Link>
@@ -61,17 +74,22 @@ export class App extends React.Component<any, {active: boolean}> {
               )}
 
               <div className="navbar-end">
-                <a className="navbar-item" href="https://github.com/Sam-Jeston/rust-on-the-web" target="_blank">
+                <a className="navbar-item" href="https://github.com/Sam-Jeston/express-react-ts-auth" target="_blank">
                   Github
                 </a>
-                <Link className="navbar-item" to="/login">Login</Link>
+                {this.state.authenticated ? (
+                  <Link className="navbar-item" to="/logout">Logout</Link>
+                ) : (
+                  <Link className="navbar-item" to="/login">Login</Link>
+                )}
               </div>
             </div>
           </nav>
           <Switch>
             <PrivateRoute exact path="/" component={Home} />
             <PrivateRoute path="/about" component={About} />
-            <Route path="/login" component={Login}/>
+            <PropsRoute path="/login" component={Login} evaluateAuthentication={this.evaluateAuthentication}/>
+            <PropsRoute path="/logout" component={Logout} evaluateAuthentication={this.evaluateAuthentication}/>
             <Route path="/signup" component={Signup}/>
             <Route path="/404" component={NotFound}/>
             <Redirect to="/404" />
@@ -94,3 +112,18 @@ const PrivateRoute = ({ component: Component, ...rest }: any) => (
     )
   )}/>
 )
+
+const renderMergedProps = (component: any, ...rest: any[]) => {
+  const finalProps = assign({}, ...rest);
+  return (
+    React.createElement(component, finalProps)
+  )
+}
+
+const PropsRoute = ({ component: Component, ...rest }: any) => {
+  return (
+    <Route {...rest} render={routeProps => {
+      return renderMergedProps(Component, routeProps, rest)
+    }}/>
+  )
+}

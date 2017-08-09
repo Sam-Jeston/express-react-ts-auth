@@ -13,8 +13,7 @@ export class Home extends React.Component<any, HomeState> {
   }
 
   public async componentDidMount () {
-    const posts: PostDef[] = await getPosts()
-    this.setState({posts})
+    this.setState({posts: []})
   }
 
   public renderPosts () {
@@ -31,15 +30,7 @@ export class Home extends React.Component<any, HomeState> {
   render() {
     return (
       <div className="container">
-        <h1 className="title is-2">Rust on the Web</h1>
-        <p>
-          <a href="http://www.arewewebyet.org/">Are We Web Yet?</a> provides a great overview of available web technologies for Rust.
-        </p>
-        <br />
-        <p>Here at <a href="https://rustontheweb.com/">Rust On The Web</a> I write articles about creating web applications with Rust, and all examples are built into the site!</p>
-        <br />
-        {this.renderPosts()}
-        <br />
+        <h1 className="title is-2">Express React Starter</h1>
       </div>
     )
   }

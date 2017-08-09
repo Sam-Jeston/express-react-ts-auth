@@ -1,5 +1,5 @@
 # express-react-ts-auth
-Boilerplate for an Express API, React F.E. TypeScript and Auth with Passport
+Boilerplate for an Express API, React F.E. TypeScript and a basic user system
 
 This project has been setup as an Umbrella Repo. The Client and Server directories are independant of each other, including module dependencies.
 

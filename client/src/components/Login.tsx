@@ -1,17 +1,29 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import { login } from '../services/authentication'
+import { WarningBanner } from '../presentations/Warning'
 
-export class Login extends React.Component<any, {username: string, password: string}> {
+export class Login extends React.Component<any, {username: string, password: string, banner: string}> {
   constructor(props: any) {
     super(props)
     this.login = this.login.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.state = {
+      banner: '',
+      username: '',
+      password: ''
+    }
   }
 
   public login (e: any) {
     e.preventDefault()
-    return login(this.state.username, this.state.password)
+    login(this.state.username, this.state.password).then(() => {
+      this.props.evaluateAuthentication()
+      this.props.history.push('/')
+    }).catch((e: any) => {
+      // TODO: Make this a factory
+      this.setState({banner: e.response.data.message})
+    })
   }
 
   public handleInputChange(event: any) {
@@ -44,6 +56,7 @@ export class Login extends React.Component<any, {username: string, password: str
           <input className="button is-primary" type="submit" value="Submit" onClick={this.login} onSubmit={this.login}/>
         </form>
         <Link className="" to="/signup">Signup?</Link>
+        {this.state.banner && <WarningBanner message={this.state.banner} clear={() => this.setState({banner: ''})}/>}
       </div>
     )
   }
