@@ -33,7 +33,7 @@ export function isAuthenticated() {
 export class App extends React.Component<any, {active: boolean, authenticated: boolean}> {
   constructor(props: any) {
     super(props)
-    this.state = { active: false, authenticated: false }
+    this.state = { active: false, authenticated: isAuthenticated() }
     this.evaluateAuthentication = this.evaluateAuthentication.bind(this)
   }
 
