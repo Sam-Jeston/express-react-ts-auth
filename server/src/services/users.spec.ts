@@ -22,7 +22,7 @@ test('a password hash created with bcrypt returns false when incorrectly validat
 })
 
 test('createUser stores a user with the correct password hash', async () => {
-  const user = await createUser('john', 'starlight')
+  const user = await createUser('john@example.com', 'starlight')
   const validation = await validatePassword('starlight', user.password)
   expect(validation).toEqual(true)
 })

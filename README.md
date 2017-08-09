@@ -11,4 +11,4 @@ React, React-Router, Bulma CSS, Webpack 3
 
 ## Server
 
-Express, Postgres (pg), migrations (pgm), Passport.
+Express, Postgres (pg), migrations (pgm), simple user system.

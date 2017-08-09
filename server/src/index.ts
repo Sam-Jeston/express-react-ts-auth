@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 import { runMigrations } from './utils/run_migrations'
 import { secrets } from './config/secrets'
-import { getUserByUsername, getUserById } from './db/users'
+import { getUserByEmail, getUserById } from './db/users'
 import { validatePassword, createUser } from './services/users'
 import { User } from './db/interfaces'
 import * as path from 'path'
@@ -45,14 +45,14 @@ export async function boot() {
 
   app.post('/pub/login', async function (req, res, next) {
     try {
-      const username = req.body.username
+      const email = req.body.email
       const password = req.body.password
 
-      const user = await getUserByUsername(username)
-      if (!user.username) return res.status(400).json({message: 'Invalid username or password'})
+      const user = await getUserByEmail(email)
+      if (!user.email) return res.status(400).json({message: 'Invalid email or password'})
 
       const passwordIsValid = await validatePassword(password, user.password)
-      if (passwordIsValid === false) return res.status(400).json({message: 'Invalid username or password'})
+      if (passwordIsValid === false) return res.status(400).json({message: 'Invalid email or password'})
 
       res.cookie('userId', user.id, {signed: true})
       res.status(204).json()
@@ -64,13 +64,13 @@ export async function boot() {
 
   app.post('/pub/signup', async function (req, res, next) {
     try {
-      const username = req.body.username
+      const email = req.body.email
       const password = req.body.password
 
-      const user = await getUserByUsername(username)
-      if (user.username) return res.status(400).json({message: 'Invalid username'})
+      const user = await getUserByEmail(email)
+      if (user.email) return res.status(400).json({message: 'Invalid email'})
 
-      const newUser = await createUser(username, password)
+      const newUser = await createUser(email, password)
       res.cookie('userId', newUser.id, {signed: true})
       res.status(201).json(newUser)
     } catch (e) {
@@ -79,10 +79,20 @@ export async function boot() {
     }
   })
 
+  // Static Serving
   const publicRoot = path.join(__dirname, '..', '..', 'client')
   const publicPath = path.join(__dirname, '..', '..', 'client', 'dist')
   app.use('/dist', express.static(publicPath))
+  app.get('/favicon.ico', (req, res) => res.sendFile(path.join(publicRoot, 'favicon.ico')))
+
+  // The problem with this strategy is that it fails to send 404s for files
   app.get('*', (req, res) => res.sendFile(path.join(publicRoot, 'index.html')))
+
+  // Error Handler
+  app.use(function (err: Error, req: IRequest, res: any, next: Function) {
+    const message = err.message
+    return res.status(500).json({message})
+  })
 
   return app
 }

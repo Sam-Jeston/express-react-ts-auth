@@ -25,7 +25,8 @@
     "node-pg-migrate": "^2.7.0",
     "pg": "^7.1.0",
     "pm2": "^2.6.1",
-    "typescript": "^2.4.2"
+    "typescript": "^2.4.2",
+    "validator": "^8.0.0"
   },
   "devDependencies": {
     "@types/jest": "^20.0.6",

@@ -65,7 +65,7 @@ export class App extends React.Component<any, {active: boolean, authenticated: b
               </div>
             </div>
 
-            <div id="navMenuExample" className={this.state.active ? activeClasses : inactiveClasses}>
+            <div id="navMenuExample" className={this.state.active ? activeClasses : inactiveClasses} onClick={ () => this.toggleIsActive() }>
               {this.state.authenticated && (
                 <div className="navbar-start">
                   <Link className="navbar-item" to="/">Home</Link>
@@ -88,9 +88,9 @@ export class App extends React.Component<any, {active: boolean, authenticated: b
           <Switch>
             <PrivateRoute exact path="/" component={Home} />
             <PrivateRoute path="/about" component={About} />
-            <PropsRoute path="/login" component={Login} evaluateAuthentication={this.evaluateAuthentication}/>
-            <PropsRoute path="/logout" component={Logout} evaluateAuthentication={this.evaluateAuthentication}/>
-            <Route path="/signup" component={Signup}/>
+            <PropsRoute path="/login" component={Login} evaluateAuthentication={this.evaluateAuthentication} />
+            <PropsRoute path="/logout" component={Logout} evaluateAuthentication={this.evaluateAuthentication} />
+            <PropsRoute path="/signup" component={Signup} evaluateAuthentication={this.evaluateAuthentication} />
             <Route path="/404" component={NotFound}/>
             <Redirect to="/404" />
           </Switch>

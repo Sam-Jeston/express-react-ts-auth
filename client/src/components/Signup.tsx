@@ -3,7 +3,7 @@ import { signup } from '../services/authentication'
 import { WarningBanner } from '../presentations/Warning'
 
 export class Signup extends React.Component<any, {
-  username: string,
+  email: string,
   password: string,
   confirmPassword: string,
   banner: string
@@ -12,14 +12,21 @@ export class Signup extends React.Component<any, {
     super(props)
     this.signup = this.signup.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
-    this.state = { banner: '', username: '', password: '', confirmPassword: ''}
+    this.state = { banner: '', email: '', password: '', confirmPassword: ''}
   }
 
   public signup (e: any) {
     e.preventDefault()
 
-    if (this.state.username === '') {
-      this.setState({banner: 'A username must be provided'})
+    if (this.state.email === '') {
+      this.setState({banner: 'A email must be provided'})
+      return
+    }
+
+    const condition = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    const emailValidity = condition.test(this.state.email)
+    if (!emailValidity) {
+      this.setState({banner: 'Invalid Email Address'})
       return
     }
 
@@ -33,7 +40,13 @@ export class Signup extends React.Component<any, {
       return
     }
 
-    return signup(this.state.username, this.state.password, this.state.confirmPassword)
+    return signup(this.state.email, this.state.password, this.state.confirmPassword).then(() => {
+      this.props.evaluateAuthentication()
+      this.props.history.push('/')
+    }).catch((e: any) => {
+      // TODO: Make this a factory
+      this.setState({banner: e.response.data.message})
+    })
   }
 
   public handleInputChange(event: any) {
@@ -53,9 +66,9 @@ export class Signup extends React.Component<any, {
         <h2 className="title is-2">Signup</h2>
         <form>
           <div className="field">
-            <label className="label">Username</label>
+            <label className="label">Email</label>
             <p className="control">
-              <input className="input" name="username" type="text" placeholder="Username" onChange={this.handleInputChange} />
+              <input className="input" name="email" type="text" placeholder="Email" onChange={this.handleInputChange} />
             </p>
           </div>
           <div className="field">

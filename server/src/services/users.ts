@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs')
 import { createUser as insertUser } from '../db/users'
 import { User } from '../db/interfaces'
+const validator = require('validator')
 
 export function createHashedPassword (password: string): Promise<string> {
   return new Promise((res, rej) => {
@@ -18,7 +19,11 @@ export function validatePassword (password: string, hash: string): Promise<boole
   return bcrypt.compare(password, hash)
 }
 
-export async function createUser (username: string, password: string): Promise<User> {
+export async function createUser (email: string, password: string): Promise<User> {
+  if (!validator.isEmail(email)) {
+    throw new Error('Invalid email address')
+  }
+
   const hashedPassword = await createHashedPassword(password)
-  return insertUser(username, hashedPassword)
+  return insertUser(email, hashedPassword)
 }
