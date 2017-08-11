@@ -11,7 +11,8 @@ export async function migrateDb (): Promise<{}> {
 // TODO: There is some overhead here consider we truncate each table manually. Add a fancy PG function here
 export function cleanDb () {
   return queryHandler(async function (client: Client) {
-    await client.query(`TRUNCATE users`)
+    await client.query(`DELETE FROM sessions`)
+    await client.query(`DELETE FROM users`)
     return
   })
 }

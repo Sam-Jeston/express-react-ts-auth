@@ -22,3 +22,12 @@ exports.up = async () => {
 
   await client.end()
 };
+
+exports.down = async () => {
+  await client.connect()
+  await client.query(`
+    DROP TABLE users;
+  `)
+
+  await client.end()
+};

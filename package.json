@@ -6,7 +6,7 @@
   "scripts": {
     "start-local": "concurrently --prefix \"[{name}]\" --names \"SERVER,SERVER_WATCH,CLIENT\" -c \"bgBlue.bold,bgMagenta.bold,bgGreen.bold\" \"cd server && npm start\" \"cd server && npm run watch\" \"cd client && npm start\"",
     "watch": "concurrently --prefix \"[{name}]\" --names \"SERVER,SERVER_WATCH,CLIENT\" -c \"bgBlue.bold,bgMagenta.bold,bgGreen.bold\" \"cd server && npm start\" \"cd server && npm run watch\" \"cd client && npm start\"",
-    "start": "cd server && npm run compile && cd .. && docker-compose up -d && concurrently --prefix \"[{name}]\" --names \"DOCKER,SERVER_WATCH,CLIENT_WATCH\" -c \"bgBlue.bold,bgMagenta.bold,bgGreen.bold\" \"docker-compose logs -f\" \"cd server && npm run watch\" \"cd client && npm start\"",
+    "start": "cd server && npm run compile && cd .. && docker-compose up -d && concurrently --prefix \"[{name}]\" --names \"DOCKER,CLIENT_WATCH\" -c \"bgBlue.bold,bgMagenta.bold\" \"docker-compose logs -f\" \"cd client && npm start\"",
     "kill": "docker-compose kill && docker-compose rm",
     "prod": "cd server && npm start",
     "install-all": "npm i && cd client && npm i && cd ../server && npm i"

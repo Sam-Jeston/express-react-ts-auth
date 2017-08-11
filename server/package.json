@@ -24,6 +24,7 @@
     "express": "^4.15.3",
     "helmet": "^3.8.1",
     "node-pg-migrate": "^2.7.0",
+    "node-uuid": "^1.4.8",
     "pg": "^7.1.0",
     "pm2": "^2.6.1",
     "typescript": "^2.4.2",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@types/jest": "^20.0.6",
+    "@types/node-uuid": "0.0.28",
     "jest": "^20.0.4",
     "ts-jest": "^20.0.10"
   },
