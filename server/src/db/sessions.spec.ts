@@ -38,6 +38,9 @@ test('getSessionById returns a session when it exists', async () => {
 test('createUser returns the newly created user', async () => {
   const user = await createUser('test@test.com', 'xxxx')
   const res = await createSession(user.id)
-  console.log(res)
+  const x = await queryHandler(async function (client: Client) {
+    return client.query(`SELECT * FROM sessions`)
+  })
+
   expect(res.userId).toEqual(user.id)
 })

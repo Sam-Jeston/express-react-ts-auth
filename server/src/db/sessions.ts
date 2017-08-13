@@ -18,7 +18,7 @@ export async function createSession (userId: number): Promise<Session> {
   await queryHandler(async function (client: Client) {
     await client.query(
       `INSERT INTO sessions (id, "userId", expiry, deactivated, "createdAt") VALUES ($1, $2, $3, $4, $5)`,
-      [v4(), userId, expiry, false, new Date()]
+      [id, userId, expiry, false, new Date()]
     )
   })
 
