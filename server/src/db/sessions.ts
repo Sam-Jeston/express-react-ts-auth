@@ -3,9 +3,9 @@ import { Client } from 'pg'
 import { Session } from './interfaces'
 import { v4 } from 'node-uuid'
 
-export function getSessionById (id: string, userId: number): Promise<Session> {
+export function getSessionById (id: string): Promise<Session> {
   return queryHandler(async function (client: Client) {
-    const sessions: Session[] = (await client.query(`SELECT * FROM sessions WHERE id = $1 AND "userId" = $2`, [id, userId])).rows
+    const sessions: Session[] = (await client.query(`SELECT * FROM sessions WHERE id = $1`, [id])).rows
     return sessions.length > 0 ? sessions[0] : {}
   })
 }
@@ -22,5 +22,5 @@ export async function createSession (userId: number): Promise<Session> {
     )
   })
 
-  return getSessionById(id, userId)
+  return getSessionById(id)
 }

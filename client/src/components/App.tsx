@@ -23,7 +23,7 @@ const activeClasses = "navbar-menu is-active"
 export function isAuthenticated() {
   const cookies = document.cookie
   const parsedCookies = cookieParser(cookies)
-  if (!parsedCookies.userId) {
+  if (!parsedCookies.appSession) {
     return false
   }
 

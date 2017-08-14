@@ -15,7 +15,7 @@ beforeEach(async () => {
 
 test('getSessionById returns an empty object if the session does not exist', async () => {
   const uuid = v4()
-  const res = await getSessionById(uuid, 1)
+  const res = await getSessionById(uuid)
   expect(res).toEqual({})
 })
 
@@ -30,7 +30,7 @@ test('getSessionById returns a session when it exists', async () => {
     )
   })
 
-  const res = await getSessionById(uuid, user.id)
+  const res = await getSessionById(uuid)
   expect(res.userId).toEqual(user.id)
   expect(res.id).toEqual(uuid)
 })
@@ -38,9 +38,6 @@ test('getSessionById returns a session when it exists', async () => {
 test('createUser returns the newly created user', async () => {
   const user = await createUser('test@test.com', 'xxxx')
   const res = await createSession(user.id)
-  const x = await queryHandler(async function (client: Client) {
-    return client.query(`SELECT * FROM sessions`)
-  })
 
   expect(res.userId).toEqual(user.id)
 })
